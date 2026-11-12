@@ -22,7 +22,7 @@ import lombok.Setter;
 
 @AllArgsConstructor
 @Builder
-@Getter
+@Getter 
 @NoArgsConstructor
 @Setter
 @Entity
@@ -37,8 +37,7 @@ public class Cartera {
     @NotNull
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_usuario", nullable = false)
-    //cambiar a Usuario usuario <-
-    private Integer usuario;
+    private Usuario usuario;
 
     @Builder.Default
     @NotNull
