@@ -7,8 +7,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
 
-@Getter // getter y setter para evitar que lombok genere un toString() que pueda causar problemas de recursión infinita con la relación ManyToOne
-@Setter
+@Data 
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor

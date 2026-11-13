@@ -7,8 +7,9 @@ import jakarta.validation.constraints.Size;
 import lombok.*;
 
 
-@Builder
 @AllArgsConstructor
+@Builder
+@Data
 @NoArgsConstructor
 @Entity
 @Table(
