@@ -15,7 +15,7 @@ public class DireccionService {
     @Autowired 
     private DireccionRepository direccionRepository;
 
-    private Direccion buscarDireccion(Integer idDireccion) {
+    public Direccion buscarDireccion(Integer idDireccion) {
         log.info("Buscando dirección con ID: {}", idDireccion);
         return direccionRepository.findById(idDireccion)
                 .orElseThrow(() -> new RuntimeException("Dirección no encontrada con ID: " + idDireccion));

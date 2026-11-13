@@ -14,7 +14,7 @@ public class MetodoEnvioService {
     @Autowired 
     private MetodoEnvioRepository metodoEnvioRepository;
 
-    private MetodoEnvio buscarMetodoEnvio(Integer idMetodoEnvio) {
+    public MetodoEnvio buscarMetodoEnvio(Integer idMetodoEnvio) {
         log.info("Buscando método de envío con ID: {}", idMetodoEnvio);
         return metodoEnvioRepository.findById(idMetodoEnvio)
                 .orElseThrow(() -> new RuntimeException("Método de envío no encontrado con ID: " + idMetodoEnvio));

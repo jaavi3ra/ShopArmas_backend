@@ -14,7 +14,7 @@ public class EstadoVentaService {
     @Autowired 
     private EstadoVentaRepository estadoVentaRepository;
 
-    private EstadoVenta buscarEstadoVenta(Integer idEstadoVenta) {
+    public EstadoVenta buscarEstadoVenta(Integer idEstadoVenta) {
         log.info("Buscando estado de venta con ID: {}", idEstadoVenta);
         return estadoVentaRepository.findById(idEstadoVenta)
                 .orElseThrow(() -> new RuntimeException("Estado de venta no encontrado con ID: " + idEstadoVenta));

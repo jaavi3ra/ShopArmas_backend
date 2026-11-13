@@ -16,7 +16,7 @@ public class UsuarioService {
     @Autowired 
     private UsuarioRepository usuarioRepository;
 
-    private Usuario buscarUsuario(Integer idUsuario) {
+    public Usuario buscarUsuario(Integer idUsuario) {
         log.info("Buscando usuario con ID: {}", idUsuario);
         return usuarioRepository.findById(idUsuario)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado con ID: " + idUsuario));
