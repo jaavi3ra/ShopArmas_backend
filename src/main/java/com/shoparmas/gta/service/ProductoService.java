@@ -4,12 +4,14 @@ import com.shoparmas.gta.DTO.ProductoDTO;
 import com.shoparmas.gta.model.Producto;
 import com.shoparmas.gta.repository.ProductoRepository;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ProductoService {
-    @Autowired 
+    @Autowired
     private ProductoRepository productoRepository;
 
     private Producto buscarProducto(Integer idProducto) {
@@ -93,5 +95,12 @@ public class ProductoService {
     public void eliminarProducto(Integer idProducto) {
         Producto producto = buscarProducto(idProducto);
         productoRepository.delete(producto);
+    }
+
+    public List<ProductoDTO> obtenerTodos() {
+        return productoRepository.findAll()
+                .stream()
+                .map(this::convertirADTO)
+                .toList();
     }
 }
