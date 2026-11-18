@@ -19,7 +19,7 @@ import com.shoparmas.gta.service.ProductoService;
 import jakarta.validation.Valid;
 
 @RestController("CatalogoControllerV2")
-@RequestMapping("/api/v2/catalogo")
+@RequestMapping("/api/v1/catalogo")
 public class CatalogoController {
 
     @Autowired

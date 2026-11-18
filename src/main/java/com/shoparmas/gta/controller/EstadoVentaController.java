@@ -20,7 +20,7 @@ import com.shoparmas.gta.service.EstadoVentaService;
 import jakarta.validation.Valid;
 
 @RestController("EstadoVentaControllerV2")
-@RequestMapping("/api/v2/estado-venta")
+@RequestMapping("/api/v1/estado-venta")
 public class EstadoVentaController {
 
     @Autowired

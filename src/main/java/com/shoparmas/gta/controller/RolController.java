@@ -20,7 +20,7 @@ import com.shoparmas.gta.service.RolService;
 import jakarta.validation.Valid;
 
 @RestController("RolControllerV2")
-@RequestMapping("/api/v2/rol")
+@RequestMapping("/api/v1/rol")
 public class RolController {
 
     @Autowired
