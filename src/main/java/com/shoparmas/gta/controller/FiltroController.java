@@ -17,7 +17,7 @@ import com.shoparmas.gta.service.ProductoService;
 
 import jakarta.validation.Valid;
 
-@RestController("FiltroControllerV2")
+@RestController("FiltroControllerV1")
 @RequestMapping("/api/v1/filtro")
 public class FiltroController {
 

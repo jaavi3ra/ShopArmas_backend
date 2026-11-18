@@ -19,7 +19,7 @@ import com.shoparmas.gta.service.CategoriaService;
 
 import jakarta.validation.Valid;
 
-@RestController("CategoriaControllerV2")
+@RestController("CategoriaControllerV1")
 @RequestMapping("/api/v1/categoria")
 public class CategoriaController {
 

@@ -19,7 +19,7 @@ import com.shoparmas.gta.service.EstadoVentaService;
 
 import jakarta.validation.Valid;
 
-@RestController("EstadoVentaControllerV2")
+@RestController("EstadoVentaControllerV1")
 @RequestMapping("/api/v1/estado-venta")
 public class EstadoVentaController {
 

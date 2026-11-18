@@ -18,7 +18,7 @@ import com.shoparmas.gta.service.UsuarioService;
 
 import jakarta.validation.Valid;
 
-@RestController("RegistroControllerV2")
+@RestController("RegistroControllerV1")
 @RequestMapping("/api/v1/registro")
 public class RegistroController {
 

@@ -19,7 +19,7 @@ import com.shoparmas.gta.service.RolService;
 
 import jakarta.validation.Valid;
 
-@RestController("RolControllerV2")
+@RestController("RolControllerV1")
 @RequestMapping("/api/v1/rol")
 public class RolController {
 

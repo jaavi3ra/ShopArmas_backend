@@ -18,7 +18,7 @@ import com.shoparmas.gta.service.FavoritoService;
 
 import jakarta.validation.Valid;
 
-@RestController("FavoritoControllerV2")
+@RestController("FavoritoControllerV1")
 @RequestMapping("/api/v1/favorito")
 public class FavoritoController {
 

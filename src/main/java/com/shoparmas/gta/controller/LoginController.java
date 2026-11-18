@@ -17,7 +17,7 @@ import com.shoparmas.gta.service.UsuarioService;
 
 import jakarta.validation.Valid;
 
-@RestController("LoginControllerV2")
+@RestController("LoginControllerV1")
 @RequestMapping("/api/v1/login")
 public class LoginController {
 
