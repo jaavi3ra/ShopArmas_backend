@@ -1,6 +1,5 @@
 package com.shoparmas.gta.config;
 
-import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -10,7 +9,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebClientConfig {
     @Bean
-    @LoadBalanced //balanceador de cargas IPs disponibles cuando intente llamar a otro microservicio
     //webclient sirve para hacer peticiones http a otras apis
     public WebClient.Builder webClientBuilder() {
         return WebClient.builder(); //devuelve un constructor para personalizar
