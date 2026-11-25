@@ -1,0 +1,17 @@
+{
+    "name": "neon-sink",
+    "config": {
+        "connector.class": "io.debezium.connector.jdbc.JdbcSinkConnector",
+        "tasks.max": "1",
+        "connection.url": "jdbc:postgresql://${env:NEON_HOST}:${env:NEON_PORT}/${env:NEON_DATABASE}?sslmode=require",
+        "connection.username": "${env:NEON_USER}",
+        "connection.password": "${env:NEON_PASSWORD}",
+        "insert.mode": "upsert",
+        "delete.enabled": "true",
+        "primary.key.mode": "record_key",
+        "schema.evolution": "none",
+        "topics.regex": "gta\\.tienda_armas_gta\\..+",
+        "collection.name.format": "${source.table}",
+        "quote.identifiers": "true"
+    }
+}

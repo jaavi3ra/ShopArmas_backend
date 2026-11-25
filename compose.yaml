@@ -11,5 +11,50 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
       - ./src/main/resources/db/TiendaArmasGTA.sql:/docker-entrypoint-initdb.d/01-tienda-gta.sql:ro
+
+  kafka:
+    image: quay.io/debezium/kafka:3.2
+    ports:
+      - "127.0.0.1:9092:9092"
+    environment:
+      CLUSTER_ID: MkU3OEVBNTcwNTJENDM2Qk
+      NODE_ID: 1
+      NODE_ROLE: combined
+    volumes:
+      - kafka_data:/kafka/data
+
+  connect:
+    image: quay.io/debezium/connect:3.2
+    ports:
+      - "127.0.0.1:8083:8083"
+    depends_on:
+      - mysql
+      - kafka
+    environment:
+      BOOTSTRAP_SERVERS: kafka:9092
+      GROUP_ID: 1
+      CONFIG_STORAGE_TOPIC: connect_configs
+      OFFSET_STORAGE_TOPIC: connect_offsets
+      STATUS_STORAGE_TOPIC: connect_statuses
+      CONFIG_STORAGE_REPLICATION_FACTOR: 1
+      OFFSET_STORAGE_REPLICATION_FACTOR: 1
+      STATUS_STORAGE_REPLICATION_FACTOR: 1
+
+      # Credenciales Debezium
+      DEBEZIUM_PASSWORD: "${DEBEZIUM_PASSWORD}"
+
+      # Credenciales Neon
+      NEON_HOST: ep-cold-brook-b6qy8e4f.c-2.sa-east-1.aws.neon.tech
+      NEON_PORT: 5432
+      NEON_DATABASE: neondb
+      NEON_USER: neondb_owner
+      NEON_PASSWORD: "${NEON_PASSWORD}"
+
+      # Proveedor de variables de entorno
+      CONNECT_CONFIG_PROVIDERS: env
+      CONNECT_CONFIG_PROVIDERS_ENV_CLASS: org.apache.kafka.common.config.provider.EnvVarConfigProvider
+      CONNECT_CONFIG_PROVIDERS_ENV_PARAM_ALLOWLIST_PATTERN: "DEBEZIUM_PASSWORD|NEON_HOST|NEON_PORT|NEON_DATABASE|NEON_USER|NEON_PASSWORD"
+
 volumes:
   mysql_data:
+  kafka_data:
