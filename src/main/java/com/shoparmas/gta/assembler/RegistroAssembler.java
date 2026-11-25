@@ -16,7 +16,7 @@ public class RegistroAssembler implements RepresentationModelAssembler<UsuarioDT
     public EntityModel<UsuarioDTO> toModel(UsuarioDTO entity) {
         return EntityModel.of(entity,
                 linkTo(methodOn(RegistroController.class).obtenerRegistroPorId(entity.getIdUsuario())).withSelfRel(),
-                linkTo(methodOn(RegistroController.class).registrarUsuario(entity)).withRel("registro"),
+                linkTo(methodOn(RegistroController.class).registrarUsuario(null)).withRel("registro"),
                 linkTo(methodOn(RegistroController.class).editarRegistro(entity.getIdUsuario(), entity)).withRel("editar-registro")
         );
     }

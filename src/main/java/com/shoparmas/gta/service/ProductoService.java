@@ -1,11 +1,14 @@
 package com.shoparmas.gta.service;
 
+import java.util.List;
+
 import com.shoparmas.gta.DTO.ProductoDTO;
 import com.shoparmas.gta.model.Producto;
 import com.shoparmas.gta.repository.ProductoRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ProductoService {
@@ -37,6 +40,13 @@ public class ProductoService {
         dto.setActivo(producto.getActivo());
 
         return dto;
+    }
+
+    @Transactional(readOnly = true)
+    public List<ProductoDTO> listarProductos() {
+        return productoRepository.findAll().stream()
+                .map(this::convertirADTO)
+                .toList();
     }
 
     public ProductoDTO obtenerProductoPorId(Integer idProducto) {

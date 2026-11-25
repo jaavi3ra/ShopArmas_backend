@@ -1,6 +1,7 @@
 package com.shoparmas.gta.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +31,12 @@ public class CatalogoController {
 
     @Autowired
     private CatalogoAssembler assembler;
+
+    @Operation(summary = "Listar todos los productos del catálogo")
+    @GetMapping(produces = MediaTypes.HAL_JSON_VALUE)
+    public ResponseEntity<CollectionModel<EntityModel<ProductoDTO>>> listarProductosCatalogo() {
+        return ResponseEntity.ok(assembler.toCollectionModel(productoService.listarProductos()));
+    }
 
     @Operation(summary = "Obtener producto del catálogo por ID")
     @GetMapping(value = "/{idProducto}", produces = MediaTypes.HAL_JSON_VALUE)

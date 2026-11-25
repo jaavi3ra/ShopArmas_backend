@@ -1,10 +1,13 @@
 package com.shoparmas.gta.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.shoparmas.gta.DTO.RegistroSolicitud;
 import com.shoparmas.gta.DTO.UsuarioDTO;
 import com.shoparmas.gta.model.Usuario;
+import com.shoparmas.gta.repository.RolRepository;
 import com.shoparmas.gta.repository.UsuarioRepository;
 
 import lombok.extern.slf4j.Slf4j;
@@ -13,8 +16,23 @@ import lombok.extern.slf4j.Slf4j;
 @Service 
 public class UsuarioService {
 
+    private final Pbkdf2PasswordEncoder passwordEncoder = Pbkdf2PasswordEncoder.defaultsForSpringSecurity_v5_8();
+
     @Autowired 
     private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private RolRepository rolRepository;
+
+    public UsuarioDTO registrarUsuario(RegistroSolicitud solicitud) {
+        Usuario usuario = new Usuario();
+        usuario.setNombreUsuario(solicitud.nombreUsuario());
+        usuario.setCorreo(solicitud.correo());
+        usuario.setRol(rolRepository.findByNombreRol("Usuario")
+                .orElseThrow(() -> new IllegalStateException("El rol Usuario no está configurado")));
+        usuario.setContrasenaHash("{pbkdf2@SpringSecurity_v5_8}" + passwordEncoder.encode(solicitud.contrasena()));
+        return convertirADTO(usuarioRepository.save(usuario));
+    }
 
     public Usuario buscarUsuario(Integer idUsuario) {
         log.info("Buscando usuario con ID: {}", idUsuario);

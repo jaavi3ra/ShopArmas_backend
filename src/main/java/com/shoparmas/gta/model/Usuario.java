@@ -3,6 +3,8 @@ package com.shoparmas.gta.model;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import org.hibernate.annotations.Generated;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -54,6 +56,7 @@ public class Usuario {
     @Column(name = "puntos_rp", nullable = false)
     private Integer puntosRp = 0;
 
+    @Generated
     @Column(name = "fecha_registro", nullable = false, insertable = false, updatable = false)
     private LocalDateTime fechaRegistro;
 

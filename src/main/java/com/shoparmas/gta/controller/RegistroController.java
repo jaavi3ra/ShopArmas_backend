@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.shoparmas.gta.DTO.RegistroSolicitud;
 import com.shoparmas.gta.DTO.UsuarioDTO;
 import com.shoparmas.gta.assembler.RegistroAssembler;
 import com.shoparmas.gta.service.UsuarioService;
@@ -33,9 +34,9 @@ public class RegistroController {
 
     @Operation(summary = "Registrar nuevo usuario")
     @PostMapping(produces = MediaTypes.HAL_JSON_VALUE)
-    public ResponseEntity<EntityModel<UsuarioDTO>> registrarUsuario(@Valid @RequestBody UsuarioDTO usuarioDTO) {
+    public ResponseEntity<EntityModel<UsuarioDTO>> registrarUsuario(@Valid @RequestBody RegistroSolicitud solicitud) {
         try {
-            UsuarioDTO nuevoUsuario = usuarioService.crearUsuario(usuarioDTO);
+            UsuarioDTO nuevoUsuario = usuarioService.registrarUsuario(solicitud);
             return ResponseEntity.ok(assembler.toModel(nuevoUsuario));
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().build();
