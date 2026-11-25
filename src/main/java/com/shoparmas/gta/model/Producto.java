@@ -66,21 +66,21 @@ public class Producto {
     @NotNull
     @Min(0)
     @Max(100)
-    @Column(name = "dano", nullable = false, columnDefinition = "TINYINT UNSIGNED")
+    @Column(name = "dano", nullable = false)
     private Byte dano = 0;
 
     @Builder.Default
     @NotNull
     @Min(0)
     @Max(100)
-    @Column(name = "precision_arma", nullable = false, columnDefinition = "TINYINT UNSIGNED")
+    @Column(name = "precision_arma", nullable = false)
     private Byte precisionArma = 0;
 
     @Builder.Default
     @NotNull
     @Min(0)
     @Max(100)
-    @Column(name = "alcance", nullable = false, columnDefinition = "TINYINT UNSIGNED")
+    @Column(name = "alcance", nullable = false)
     private Byte alcance = 0;
 
     @Builder.Default

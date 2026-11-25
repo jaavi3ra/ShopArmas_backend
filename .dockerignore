@@ -1,0 +1,13 @@
+.git
+.gitignore
+.env
+.env.*
+target
+.vscode
+.idea
+*.iml
+compose.yaml
+Dockerfile
+README.md
+monitoring
+docs
