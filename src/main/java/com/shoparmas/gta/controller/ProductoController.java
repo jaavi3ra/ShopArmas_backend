@@ -17,8 +17,11 @@ import com.shoparmas.gta.DTO.ProductoDTO;
 import com.shoparmas.gta.assembler.ProductoAssembler;
 import com.shoparmas.gta.service.ProductoService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
+@Tag(name = "Productos", description = "Gestión CRUD de productos")
 @RestController("ProductoControllerV1")
 @RequestMapping("/api/v1/producto")
 public class ProductoController {
@@ -29,6 +32,7 @@ public class ProductoController {
     @Autowired
     private ProductoAssembler assembler;
 
+    @Operation(summary = "Obtener producto por ID")
     @GetMapping(value = "/{idProducto}", produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<EntityModel<ProductoDTO>> obtenerProductoPorId(@PathVariable Integer idProducto) {
         try {
@@ -39,6 +43,7 @@ public class ProductoController {
         }
     }
 
+    @Operation(summary = "Crear nuevo producto")
     @PostMapping(produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<EntityModel<ProductoDTO>> crearProducto(@Valid @RequestBody ProductoDTO productoDTO) {
         try {
@@ -49,6 +54,7 @@ public class ProductoController {
         }
     }
 
+    @Operation(summary = "Editar producto existente")
     @PutMapping(value = "/editar-producto/{idProducto}", produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<EntityModel<ProductoDTO>> editarProducto(@PathVariable Integer idProducto,
             @Valid @RequestBody ProductoDTO productoDTO) {
@@ -60,6 +66,7 @@ public class ProductoController {
         }
     }
 
+    @Operation(summary = "Eliminar producto por ID")
     @DeleteMapping(value = "/eliminar/{idProducto}")
     public ResponseEntity<Void> eliminarProducto(@PathVariable Integer idProducto) {
         try {

@@ -17,8 +17,11 @@ import com.shoparmas.gta.DTO.MetodoEnvioDTO;
 import com.shoparmas.gta.assembler.MetodoEnvioAssembler;
 import com.shoparmas.gta.service.MetodoEnvioService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
+@Tag(name = "Métodos de Envío", description = "Gestión de métodos de envío")
 @RestController("MetodoEnvioControllerV1")
 @RequestMapping("/api/v1/metodo-envio")
 public class MetodoEnvioController {
@@ -29,6 +32,7 @@ public class MetodoEnvioController {
     @Autowired
     private MetodoEnvioAssembler assembler;
 
+    @Operation(summary = "Obtener método de envío por ID")
     @GetMapping(value = "/{idMetodoEnvio}", produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<EntityModel<MetodoEnvioDTO>> obtenerMetodoEnvioPorId(@PathVariable Integer idMetodoEnvio) {
         try {
@@ -39,6 +43,7 @@ public class MetodoEnvioController {
         }
     }
 
+    @Operation(summary = "Crear nuevo método de envío")
     @PostMapping(produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<EntityModel<MetodoEnvioDTO>> crearMetodoEnvio(
             @Valid @RequestBody MetodoEnvioDTO metodoEnvioDTO) {
@@ -50,6 +55,7 @@ public class MetodoEnvioController {
         }
     }
 
+    @Operation(summary = "Editar método de envío existente")
     @PutMapping(value = "/editar-metodo/{idMetodoEnvio}", produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<EntityModel<MetodoEnvioDTO>> editarMetodoEnvio(@PathVariable Integer idMetodoEnvio,
             @Valid @RequestBody MetodoEnvioDTO metodoEnvioDTO) {
@@ -61,6 +67,7 @@ public class MetodoEnvioController {
         }
     }
 
+    @Operation(summary = "Eliminar método de envío por ID")
     @DeleteMapping(value = "/eliminar/{idMetodoEnvio}")
     public ResponseEntity<Void> eliminarMetodoEnvio(@PathVariable Integer idMetodoEnvio) {
         try {

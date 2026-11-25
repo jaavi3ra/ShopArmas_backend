@@ -17,8 +17,11 @@ import com.shoparmas.gta.DTO.DireccionDTO;
 import com.shoparmas.gta.assembler.DireccionAssembler;
 import com.shoparmas.gta.service.DireccionService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
+@Tag(name = "Direcciones", description = "Gestión de direcciones de envío")
 @RestController("DireccionControllerV1")
 @RequestMapping("/api/v1/direccion")
 public class DireccionController {
@@ -29,6 +32,7 @@ public class DireccionController {
     @Autowired
     private DireccionAssembler assembler;
 
+    @Operation(summary = "Obtener dirección por ID")
     @GetMapping(value = "/{idDireccion}", produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<EntityModel<DireccionDTO>> obtenerDireccionPorId(@PathVariable Integer idDireccion) {
         try {
@@ -39,6 +43,7 @@ public class DireccionController {
         }
     }
 
+    @Operation(summary = "Crear nueva dirección")
     @PostMapping(produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<EntityModel<DireccionDTO>> crearDireccion(@Valid @RequestBody DireccionDTO direccionDTO) {
         try {
@@ -49,6 +54,7 @@ public class DireccionController {
         }
     }
 
+    @Operation(summary = "Editar dirección existente")
     @PutMapping(value = "/editar-direccion/{idDireccion}", produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<EntityModel<DireccionDTO>> editarDireccion(@PathVariable Integer idDireccion,
             @Valid @RequestBody DireccionDTO direccionDTO) {
@@ -60,6 +66,7 @@ public class DireccionController {
         }
     }
 
+    @Operation(summary = "Eliminar dirección por ID")
     @DeleteMapping(value = "/eliminar/{idDireccion}")
     public ResponseEntity<Void> eliminarDireccion(@PathVariable Integer idDireccion) {
         try {

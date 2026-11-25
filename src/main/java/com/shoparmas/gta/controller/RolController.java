@@ -17,8 +17,11 @@ import com.shoparmas.gta.DTO.RolDTO;
 import com.shoparmas.gta.assembler.RolAssembler;
 import com.shoparmas.gta.service.RolService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
+@Tag(name = "Roles", description = "Gestión de roles de usuario")
 @RestController("RolControllerV1")
 @RequestMapping("/api/v1/rol")
 public class RolController {
@@ -29,6 +32,7 @@ public class RolController {
     @Autowired
     private RolAssembler assembler;
 
+    @Operation(summary = "Obtener rol por ID")
     @GetMapping(value = "/{idRol}", produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<EntityModel<RolDTO>> obtenerRolPorId(@PathVariable Integer idRol) {
         try {
@@ -39,6 +43,7 @@ public class RolController {
         }
     }
 
+    @Operation(summary = "Crear nuevo rol")
     @PostMapping(produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<EntityModel<RolDTO>> crearRol(@Valid @RequestBody RolDTO rolDTO) {
         try {
@@ -49,6 +54,7 @@ public class RolController {
         }
     }
 
+    @Operation(summary = "Editar rol existente")
     @PutMapping(value = "/editar-rol/{idRol}", produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<EntityModel<RolDTO>> actualizarRol(@PathVariable Integer idRol,
             @Valid @RequestBody RolDTO rolDTO) {
@@ -60,6 +66,7 @@ public class RolController {
         }
     }
 
+    @Operation(summary = "Eliminar rol por ID")
     @DeleteMapping(value = "/eliminar/{idRol}")
     public ResponseEntity<Void> eliminarRol(@PathVariable Integer idRol) {
         try {

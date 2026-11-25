@@ -17,8 +17,11 @@ import com.shoparmas.gta.DTO.VentaDTO;
 import com.shoparmas.gta.assembler.VentaAssembler;
 import com.shoparmas.gta.service.VentaService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
+@Tag(name = "Ventas", description = "Gestión de ventas")
 @RestController("VentaControllerV1")
 @RequestMapping("/api/v1/venta")
 public class VentaController {
@@ -29,6 +32,7 @@ public class VentaController {
     @Autowired
     private VentaAssembler assembler;
 
+    @Operation(summary = "Obtener venta por ID")
     @GetMapping(value = "/{idVenta}", produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<EntityModel<VentaDTO>> obtenerVentaPorId(@PathVariable Integer idVenta) {
         try {
@@ -39,6 +43,7 @@ public class VentaController {
         }
     }
 
+    @Operation(summary = "Crear nueva venta")
     @PostMapping(produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<EntityModel<VentaDTO>> crearVenta(@Valid @RequestBody VentaDTO ventaDTO) {
         try {
@@ -49,6 +54,7 @@ public class VentaController {
         }
     }
 
+    @Operation(summary = "Editar venta existente")
     @PutMapping(value = "/editar-venta/{idVenta}", produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<EntityModel<VentaDTO>> editarVenta(@PathVariable Integer idVenta,
             @Valid @RequestBody VentaDTO ventaDTO) {
@@ -60,6 +66,7 @@ public class VentaController {
         }
     }
 
+    @Operation(summary = "Eliminar venta por ID")
     @DeleteMapping(value = "/eliminar/{idVenta}")
     public ResponseEntity<Void> eliminarVenta(@PathVariable Integer idVenta) {
         try {

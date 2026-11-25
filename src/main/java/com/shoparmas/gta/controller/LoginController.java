@@ -15,8 +15,11 @@ import com.shoparmas.gta.DTO.UsuarioDTO;
 import com.shoparmas.gta.assembler.LoginAssembler;
 import com.shoparmas.gta.service.UsuarioService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
+@Tag(name = "Login", description = "Autenticación de usuarios")
 @RestController("LoginControllerV1")
 @RequestMapping("/api/v1/login")
 public class LoginController {
@@ -27,6 +30,7 @@ public class LoginController {
     @Autowired
     private LoginAssembler assembler;
 
+    @Operation(summary = "Iniciar sesión de usuario")
     @PostMapping(produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<EntityModel<UsuarioDTO>> login(@Valid @RequestBody UsuarioDTO usuarioDTO) {
         try {
@@ -39,6 +43,7 @@ public class LoginController {
         }
     }
 
+    @Operation(summary = "Obtener usuario de login por ID")
     @GetMapping(value = "/{idUsuario}", produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<EntityModel<UsuarioDTO>> obtenerUsuarioLogin(@PathVariable Integer idUsuario) {
         try {

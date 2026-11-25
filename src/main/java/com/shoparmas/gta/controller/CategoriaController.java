@@ -17,8 +17,11 @@ import com.shoparmas.gta.DTO.CategoriaDTO;
 import com.shoparmas.gta.assembler.CategoriaAssembler;
 import com.shoparmas.gta.service.CategoriaService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
+@Tag(name = "Categorías", description = "Gestión de categorías de productos")
 @RestController("CategoriaControllerV1")
 @RequestMapping("/api/v1/categoria")
 public class CategoriaController {
@@ -29,6 +32,7 @@ public class CategoriaController {
     @Autowired
     private CategoriaAssembler assembler;
 
+    @Operation(summary = "Obtener categoría por ID")
     @GetMapping(value = "/{idCategoria}", produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<EntityModel<CategoriaDTO>> obtenerCategoriaPorId(@PathVariable Integer idCategoria) {
         try {
@@ -39,6 +43,7 @@ public class CategoriaController {
         }
     }
 
+    @Operation(summary = "Crear nueva categoría")
     @PostMapping(produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<EntityModel<CategoriaDTO>> crearCategoria(@Valid @RequestBody CategoriaDTO categoriaDTO) {
         try {
@@ -49,6 +54,7 @@ public class CategoriaController {
         }
     }
 
+    @Operation(summary = "Editar categoría existente")
     @PutMapping(value = "/editar-categoria/{idCategoria}", produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<EntityModel<CategoriaDTO>> editarCategoria(@PathVariable Integer idCategoria,
             @Valid @RequestBody CategoriaDTO categoriaDTO) {
@@ -60,6 +66,7 @@ public class CategoriaController {
         }
     }
 
+    @Operation(summary = "Eliminar categoría por ID")
     @DeleteMapping(value = "/eliminar/{idCategoria}")
     public ResponseEntity<Void> eliminarCategoria(@PathVariable Integer idCategoria) {
         try {

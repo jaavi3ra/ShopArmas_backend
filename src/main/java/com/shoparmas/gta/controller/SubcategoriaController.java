@@ -17,8 +17,11 @@ import com.shoparmas.gta.DTO.SubcategoriaDTO;
 import com.shoparmas.gta.assembler.SubcategoriaAssembler;
 import com.shoparmas.gta.service.SubcategoriaService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
+@Tag(name = "Subcategorías", description = "Gestión de subcategorías de productos")
 @RestController("SubcategoriaControllerV1")
 @RequestMapping("/api/v1/subcategoria")
 public class SubcategoriaController {
@@ -29,6 +32,7 @@ public class SubcategoriaController {
     @Autowired
     private SubcategoriaAssembler assembler;
 
+    @Operation(summary = "Obtener subcategoría por ID")
     @GetMapping(value = "/{idSubcategoria}", produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<EntityModel<SubcategoriaDTO>> obtenerSubcategoriaPorId(@PathVariable Integer idSubcategoria) {
         try {
@@ -39,6 +43,7 @@ public class SubcategoriaController {
         }
     }
 
+    @Operation(summary = "Crear nueva subcategoría")
     @PostMapping(produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<EntityModel<SubcategoriaDTO>> crearSubcategoria(
             @Valid @RequestBody SubcategoriaDTO subcategoriaDTO) {
@@ -50,6 +55,7 @@ public class SubcategoriaController {
         }
     }
 
+    @Operation(summary = "Editar subcategoría existente")
     @PutMapping(value = "/editar-subcategoria/{idSubcategoria}", produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<EntityModel<SubcategoriaDTO>> editarSubcategoria(@PathVariable Integer idSubcategoria,
             @Valid @RequestBody SubcategoriaDTO subcategoriaDTO) {
@@ -61,6 +67,7 @@ public class SubcategoriaController {
         }
     }
 
+    @Operation(summary = "Eliminar subcategoría por ID")
     @DeleteMapping(value = "/eliminar/{idSubcategoria}")
     public ResponseEntity<Void> eliminarSubcategoria(@PathVariable Integer idSubcategoria) {
         try {

@@ -17,8 +17,11 @@ import com.shoparmas.gta.DTO.RegionDTO;
 import com.shoparmas.gta.assembler.RegionAssembler;
 import com.shoparmas.gta.service.RegionService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
+@Tag(name = "Regiones", description = "Gestión de regiones")
 @RestController("RegionControllerV1")
 @RequestMapping("/api/v1/region")
 public class RegionController {
@@ -29,6 +32,7 @@ public class RegionController {
     @Autowired
     private RegionAssembler assembler;
 
+    @Operation(summary = "Obtener región por ID")
     @GetMapping(value = "/{idRegion}", produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<EntityModel<RegionDTO>> obtenerRegionPorId(@PathVariable Integer idRegion) {
         try {
@@ -39,6 +43,7 @@ public class RegionController {
         }
     }
 
+    @Operation(summary = "Crear nueva región")
     @PostMapping(produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<EntityModel<RegionDTO>> crearRegion(@Valid @RequestBody RegionDTO regionDTO) {
         try {
@@ -49,6 +54,7 @@ public class RegionController {
         }
     }
 
+    @Operation(summary = "Editar región existente")
     @PutMapping(value = "/editar-region/{idRegion}", produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<EntityModel<RegionDTO>> editarRegion(@PathVariable Integer idRegion,
             @Valid @RequestBody RegionDTO regionDTO) {
@@ -60,6 +66,7 @@ public class RegionController {
         }
     }
 
+    @Operation(summary = "Eliminar región por ID")
     @DeleteMapping(value = "/eliminar/{idRegion}")
     public ResponseEntity<Void> eliminarRegion(@PathVariable Integer idRegion) {
         try {

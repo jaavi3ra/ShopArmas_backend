@@ -16,8 +16,11 @@ import com.shoparmas.gta.DTO.FavoritoDTO;
 import com.shoparmas.gta.assembler.FavoritoAssembler;
 import com.shoparmas.gta.service.FavoritoService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
+@Tag(name = "Favoritos", description = "Gestión de productos favoritos por usuario")
 @RestController("FavoritoControllerV1")
 @RequestMapping("/api/v1/favorito")
 public class FavoritoController {
@@ -28,6 +31,7 @@ public class FavoritoController {
     @Autowired
     private FavoritoAssembler assembler;
 
+    @Operation(summary = "Obtener favorito por usuario y producto")
     @GetMapping(value = "/usuario/{idUsuario}/producto/{idProducto}", produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<EntityModel<FavoritoDTO>> obtenerFavorito(@PathVariable Integer idUsuario,
             @PathVariable Integer idProducto) {
@@ -39,6 +43,7 @@ public class FavoritoController {
         }
     }
 
+    @Operation(summary = "Agregar producto a favoritos")
     @PostMapping(produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<EntityModel<FavoritoDTO>> agregarFavorito(@Valid @RequestBody FavoritoDTO favoritoDTO) {
         try {
@@ -49,6 +54,7 @@ public class FavoritoController {
         }
     }
 
+    @Operation(summary = "Eliminar producto de favoritos")
     @DeleteMapping(value = "/usuario/{idUsuario}/producto/{idProducto}")
     public ResponseEntity<Void> eliminarFavorito(@PathVariable Integer idUsuario,
             @PathVariable Integer idProducto) {

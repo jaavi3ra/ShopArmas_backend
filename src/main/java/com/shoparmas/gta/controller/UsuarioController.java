@@ -17,8 +17,11 @@ import com.shoparmas.gta.DTO.UsuarioDTO;
 import com.shoparmas.gta.assembler.UsuarioAssembler;
 import com.shoparmas.gta.service.UsuarioService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
+@Tag(name = "Usuarios", description = "Gestión CRUD de usuarios")
 @RestController("UsuarioControllerV1")
 @RequestMapping("/api/v1/usuario")
 public class UsuarioController {
@@ -29,6 +32,7 @@ public class UsuarioController {
     @Autowired
     private UsuarioAssembler assembler;
 
+    @Operation(summary = "Obtener usuario por ID")
     @GetMapping(value = "/{idUsuario}", produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<EntityModel<UsuarioDTO>> obtenerUsuarioPorId(@PathVariable Integer idUsuario) {
         try {
@@ -39,6 +43,7 @@ public class UsuarioController {
         }
     }
 
+    @Operation(summary = "Crear nuevo usuario")
     @PostMapping(produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<EntityModel<UsuarioDTO>> crearUsuario(@Valid @RequestBody UsuarioDTO usuarioDTO) {
         try {
@@ -49,6 +54,7 @@ public class UsuarioController {
         }
     }
 
+    @Operation(summary = "Editar usuario existente")
     @PutMapping(value = "/editar-usuario/{idUsuario}", produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<EntityModel<UsuarioDTO>> editarUsuario(@PathVariable Integer idUsuario,
             @Valid @RequestBody UsuarioDTO usuarioDTO) {
@@ -60,6 +66,7 @@ public class UsuarioController {
         }
     }
 
+    @Operation(summary = "Eliminar usuario por ID")
     @DeleteMapping(value = "/eliminar/{idUsuario}")
     public ResponseEntity<Void> eliminarUsuario(@PathVariable Integer idUsuario) {
         try {

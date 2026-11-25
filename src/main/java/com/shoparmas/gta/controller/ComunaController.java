@@ -17,8 +17,11 @@ import com.shoparmas.gta.DTO.ComunaDTO;
 import com.shoparmas.gta.assembler.ComunaAssembler;
 import com.shoparmas.gta.service.ComunaService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
+@Tag(name = "Comunas", description = "Gestión de comunas")
 @RestController("ComunaControllerV1")
 @RequestMapping("/api/v1/comuna")
 public class ComunaController {
@@ -29,6 +32,7 @@ public class ComunaController {
     @Autowired
     private ComunaAssembler assembler;
 
+    @Operation(summary = "Obtener comuna por ID")
     @GetMapping(value = "/{idComuna}", produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<EntityModel<ComunaDTO>> obtenerComunaPorId(@PathVariable Integer idComuna) {
         try {
@@ -39,6 +43,7 @@ public class ComunaController {
         }
     }
 
+    @Operation(summary = "Crear nueva comuna")
     @PostMapping(produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<EntityModel<ComunaDTO>> crearComuna(@Valid @RequestBody ComunaDTO comunaDTO) {
         try {
@@ -49,6 +54,7 @@ public class ComunaController {
         }
     }
 
+    @Operation(summary = "Editar comuna existente")
     @PutMapping(value = "/editar-comuna/{idComuna}", produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<EntityModel<ComunaDTO>> editarComuna(@PathVariable Integer idComuna,
             @Valid @RequestBody ComunaDTO comunaDTO) {
@@ -60,6 +66,7 @@ public class ComunaController {
         }
     }
 
+    @Operation(summary = "Eliminar comuna por ID")
     @DeleteMapping(value = "/eliminar/{idComuna}")
     public ResponseEntity<Void> eliminarComuna(@PathVariable Integer idComuna) {
         try {

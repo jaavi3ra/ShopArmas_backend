@@ -16,8 +16,11 @@ import com.shoparmas.gta.DTO.ProductoDTO;
 import com.shoparmas.gta.assembler.CatalogoAssembler;
 import com.shoparmas.gta.service.ProductoService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
+@Tag(name = "Catálogo", description = "Gestión del catálogo de productos")
 @RestController("CatalogoControllerV1")
 @RequestMapping("/api/v1/catalogo")
 public class CatalogoController {
@@ -28,6 +31,7 @@ public class CatalogoController {
     @Autowired
     private CatalogoAssembler assembler;
 
+    @Operation(summary = "Obtener producto del catálogo por ID")
     @GetMapping(value = "/{idProducto}", produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<EntityModel<ProductoDTO>> obtenerProductoCatalogo(@PathVariable Integer idProducto) {
         try {
@@ -38,6 +42,7 @@ public class CatalogoController {
         }
     }
 
+    @Operation(summary = "Agregar producto al catálogo")
     @PostMapping(produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<EntityModel<ProductoDTO>> agregarProductoCatalogo(@Valid @RequestBody ProductoDTO productoDTO) {
         try {
@@ -48,6 +53,7 @@ public class CatalogoController {
         }
     }
 
+    @Operation(summary = "Editar producto del catálogo")
     @PutMapping(value = "/editar-catalogo/{idProducto}", produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<EntityModel<ProductoDTO>> editarProductoCatalogo(@PathVariable Integer idProducto,
             @Valid @RequestBody ProductoDTO productoDTO) {

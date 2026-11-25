@@ -20,10 +20,13 @@ import com.shoparmas.gta.DTO.CarteraDTO;
 import com.shoparmas.gta.assembler.CarteraAssembler;
 import com.shoparmas.gta.service.CarteraService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
+@Tag(name = "Carteras", description = "Gestión de carteras y saldos de usuarios")
 @RestController("CarteraControllerV1")
 @RequestMapping("/api/v1/cartera")
 public class CarteraController {
@@ -34,6 +37,7 @@ public class CarteraController {
     @Autowired
     private CarteraAssembler assembler;
 
+    @Operation(summary = "Listar todas las carteras")
     @GetMapping(produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<CollectionModel<EntityModel<CarteraDTO>>> listarCarteras() {
         try {
@@ -46,6 +50,7 @@ public class CarteraController {
         }
     }
 
+    @Operation(summary = "Obtener cartera por ID de usuario")
     @GetMapping(value = "/{idUsuario}", produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<EntityModel<CarteraDTO>> obtenerCarteraPorId(@PathVariable Integer idUsuario) {
         try {
@@ -56,6 +61,7 @@ public class CarteraController {
         }
     }
 
+    @Operation(summary = "Crear cartera para un usuario")
     @PostMapping(value = "/{idUsuario}", produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<EntityModel<CarteraDTO>> crearCartera(@PathVariable Integer idUsuario) {
         try {
@@ -66,6 +72,7 @@ public class CarteraController {
         }
     }
 
+    @Operation(summary = "Actualizar saldo de la cartera")
     @PutMapping(value = "/editar-saldo/{idUsuario}", produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<EntityModel<CarteraDTO>> actualizarSaldo(@PathVariable Integer idUsuario,
             @Valid @RequestBody CarteraDTO carteraDTO) {
@@ -77,6 +84,7 @@ public class CarteraController {
         }
     }
 
+    @Operation(summary = "Eliminar cartera por ID de usuario")
     @DeleteMapping(value = "/eliminar/{idUsuario}")
     public ResponseEntity<Void> eliminarCartera(@PathVariable Integer idUsuario) {
         try {

@@ -15,8 +15,11 @@ import com.shoparmas.gta.DTO.ProductoDTO;
 import com.shoparmas.gta.assembler.FiltroAssembler;
 import com.shoparmas.gta.service.ProductoService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
+@Tag(name = "Filtros", description = "Filtrado y edición de filtros de productos")
 @RestController("FiltroControllerV1")
 @RequestMapping("/api/v1/filtro")
 public class FiltroController {
@@ -27,6 +30,7 @@ public class FiltroController {
     @Autowired
     private FiltroAssembler assembler;
 
+    @Operation(summary = "Filtrar producto por ID")
     @GetMapping(value = "/producto/{idProducto}", produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<EntityModel<ProductoDTO>> filtrarPorProducto(@PathVariable Integer idProducto) {
         try {
@@ -37,6 +41,7 @@ public class FiltroController {
         }
     }
 
+    @Operation(summary = "Editar filtros de un producto")
     @PutMapping(value = "/editar-filtro/{idProducto}", produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<EntityModel<ProductoDTO>> editarFiltroProducto(@PathVariable Integer idProducto,
             @Valid @RequestBody ProductoDTO productoDTO) {

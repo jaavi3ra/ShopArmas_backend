@@ -16,8 +16,11 @@ import com.shoparmas.gta.DTO.UsuarioDTO;
 import com.shoparmas.gta.assembler.RegistroAssembler;
 import com.shoparmas.gta.service.UsuarioService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
+@Tag(name = "Registro", description = "Registro y edición de usuarios")
 @RestController("RegistroControllerV1")
 @RequestMapping("/api/v1/registro")
 public class RegistroController {
@@ -28,6 +31,7 @@ public class RegistroController {
     @Autowired
     private RegistroAssembler assembler;
 
+    @Operation(summary = "Registrar nuevo usuario")
     @PostMapping(produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<EntityModel<UsuarioDTO>> registrarUsuario(@Valid @RequestBody UsuarioDTO usuarioDTO) {
         try {
@@ -38,6 +42,7 @@ public class RegistroController {
         }
     }
 
+    @Operation(summary = "Obtener registro de usuario por ID")
     @GetMapping(value = "/{idUsuario}", produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<EntityModel<UsuarioDTO>> obtenerRegistroPorId(@PathVariable Integer idUsuario) {
         try {
@@ -48,6 +53,7 @@ public class RegistroController {
         }
     }
 
+    @Operation(summary = "Editar registro de usuario")
     @PutMapping(value = "/editar-registro/{idUsuario}", produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<EntityModel<UsuarioDTO>> editarRegistro(@PathVariable Integer idUsuario,
             @Valid @RequestBody UsuarioDTO usuarioDTO) {
