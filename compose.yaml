@@ -1,5 +1,30 @@
 services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: shoparmas-app
+    ports:
+      - "${PORT:-8080}:8080"
+    environment:
+      PORT: 8080
+      DB_URL: ${DB_URL}
+      DB_DIRECT_URL: ${DB_DIRECT_URL:-${DB_URL}}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      SPRING_FLYWAY_ENABLED: "${SPRING_FLYWAY_ENABLED:-true}"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+
+  # Servicio MySQL legado conservado hasta validar la transicion a Neon.
+  # Para levantarlo manualmente: docker compose --profile legacy-mysql up -d mysql
   mysql:
+    profiles: ["legacy-mysql"]
     image: mysql:8.4
     ports:
       - "127.0.0.1:3307:3306"
@@ -11,5 +36,6 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
       - ./src/main/resources/db/TiendaArmasGTA.sql:/docker-entrypoint-initdb.d/01-tienda-gta.sql:ro
+
 volumes:
   mysql_data:

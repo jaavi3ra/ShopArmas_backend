@@ -1,0 +1,68 @@
+server:
+  port: "${PORT:8080}"
+
+spring:
+  application:
+    name: gta
+  profiles:
+    default: dev
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 5
+      minimum-idle: 1
+      connection-timeout: 3000
+      idle-timeout: 300000
+      max-lifetime: 900000
+      keepalive-time: 60000
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: method
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    url: "${DB_URL}"
+    username: "${DB_USERNAME}"
+    password: "${DB_PASSWORD}"
+  # Flyway puede usar el endpoint directo de Neon.
+  flyway:
+    url: "${DB_DIRECT_URL:${DB_URL}}"
+    user: "${DB_DIRECT_USERNAME:${DB_USERNAME}}"
+    password: "${DB_DIRECT_PASSWORD:${DB_PASSWORD}}"
+
+---
+
+server:
+  port: 0
+
+spring:
+  config:
+    activate:
+      on-profile: test
+  datasource:
+    url: "${TEST_DB_URL}"
+    username: "${TEST_DB_USERNAME}"
+    password: "${TEST_DB_PASSWORD}"
+  flyway:
+    url: "${TEST_DB_DIRECT_URL:${TEST_DB_URL}}"
+    user: "${TEST_DB_DIRECT_USERNAME:${TEST_DB_USERNAME}}"
+    password: "${TEST_DB_DIRECT_PASSWORD:${TEST_DB_PASSWORD}}"
